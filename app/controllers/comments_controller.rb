@@ -1,5 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: %i[ show edit update destroy ]
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   # GET /comments or /comments.json
   def index
@@ -66,5 +67,9 @@ class CommentsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def comment_params
       params.require(:comment).permit(:message, :post_id, :user_id)
+    end
+
+    def record_not_found
+      render plain: '404 Not Found', status: 404
     end
 end

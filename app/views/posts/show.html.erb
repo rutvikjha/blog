@@ -8,3 +8,17 @@
 
   <%= button_to "Destroy this post", @post, method: :delete %>
 </div>
+
+<h1>Comments For <%= @post.title %></h1>
+
+<ul>
+  <% @comments.each do |comment| %>
+    <li>
+    <ul>
+    User ID: <%= comment.user_id %>
+    <li><%= comment.message %></li>
+    <%= link_to "Show this comment", comment %>
+    </ul>
+    </li>
+  <% end %>
+</ul>
