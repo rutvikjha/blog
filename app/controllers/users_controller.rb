@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
   # GET /users or /users.json
   def index
@@ -66,5 +67,9 @@ class UsersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_params
       params.require(:user).permit(:name)
+    end
+
+    def record_not_found
+      render plain: '404 Not Found', status: 404
     end
 end
